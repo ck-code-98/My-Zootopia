@@ -24,17 +24,19 @@ def serialize_animal(animal):
     output = ""
     output += '<li class="cards__item">'
     output += f'\t<div class="card__title">{animal["name"]}</div>\n'
-    output += '\t<p class="card__text">'
-    output += f'\t\t<strong>Diet:</strong> {animal["characteristics"]["diet"]}<br/>\n'
-    output += f'\t\t<strong>Location:</strong> {animal["locations"][0]}<br/>\n'
+    output += '\t<div class="card__text">'
+    output += '\t\t<ul>'
+    output += f'\t\t\t<li><strong>Diet:</strong> {animal["characteristics"]["diet"]}</li>\n'
+    output += f'\t\t\t<li><strong>Location:</strong> {animal["locations"][0]}</li>\n'
     if "type" in animal["characteristics"]:
-        output += f'\t\t<strong>Type:</strong> {animal["characteristics"]["type"]}<br/>\n'
-    output += '\t</p>'
+        output += f'\t\t\t<li><strong>Type:</strong> {animal["characteristics"]["type"]}</li>\n'
+    output += '\t\t</ul>'
+    output += '\t</div>'
     output += '</li>'
     return output
 
 
-def extract_animals_data(overall_data):
+def generate_html_code(overall_data):
     """ iterates through all animals """
     output = ""
     for animal in overall_data:
@@ -44,7 +46,7 @@ def extract_animals_data(overall_data):
 
 def main():
     overall_animals_data = load_data_from_json('animals_data.json')
-    desired_output = extract_animals_data(overall_animals_data)
+    desired_output = generate_html_code(overall_animals_data)
     original_html_content = load_data_from_html('animals_template.html')
     updated_html_content = original_html_content.replace("__REPLACE_ANIMALS_INFO__", desired_output)
     updated_html_content = updated_html_content.replace('<style>', '<meta charset="UTF-8" /> \n\t<style>')
