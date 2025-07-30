@@ -21,15 +21,17 @@ def write_new_html_file(file_path, content):
 
 def extract_animals_data(overall_data):
     """ iterates through all animals and returns a string with specific data """
-    extracted_animals_data = ""
+    output = ""
     for animal in overall_data:
-        extracted_animals_data += f'Name: {animal["name"]}\n'
-        extracted_animals_data += f'Diet: {animal["characteristics"]["diet"]}\n'
-        extracted_animals_data += f'Location: {animal["locations"][0]}\n'
+        output += '<li class="cards__item">'
+        output += f'Name: {animal["name"]}<br/>\n'
+        output += f'Diet: {animal["characteristics"]["diet"]}<br/>\n'
+        output += f'Location: {animal["locations"][0]}<br/>\n'
         if "type" in animal["characteristics"]:
-            extracted_animals_data += f'Type: {animal["characteristics"]["type"]}\n'
-        extracted_animals_data += '\n'
-    return extracted_animals_data
+            output += f'Type: {animal["characteristics"]["type"]}<br/>\n'
+        output += '<br/>\n'
+        output += '</li>'
+    return output
 
 
 def main():
