@@ -659,5 +659,11 @@
       "lifespan": "13 – 14 years",
       "weight": "19 lbs"
     }
-  }
+  },
+    {"name": "European Foxhound",
+    "locations": ["Europe"],
+    "characteristics": {"diet": "Omnivore", "type": "Hound"}},
+    {"name": "Asian Foxhound",
+    "locations": ["Asia"],
+    "characteristics": {"diet": "Omnivore", "type": "Hound"}}
 ]
