@@ -19,19 +19,26 @@ def write_new_html_file(file_path, content):
         return new_html.write(content)
 
 
+def serialize_animal(animal):
+    """ returns an HTML-formatted string with specific data about a single animal"""
+    output = ""
+    output += '<li class="cards__item">'
+    output += f'\t<div class="card__title">{animal["name"]}</div>\n'
+    output += '\t<p class="card__text">'
+    output += f'\t\t<strong>Diet:</strong> {animal["characteristics"]["diet"]}<br/>\n'
+    output += f'\t\t<strong>Location:</strong> {animal["locations"][0]}<br/>\n'
+    if "type" in animal["characteristics"]:
+        output += f'\t\t<strong>Type:</strong> {animal["characteristics"]["type"]}<br/>\n'
+    output += '\t</p>'
+    output += '</li>'
+    return output
+
+
 def extract_animals_data(overall_data):
-    """ iterates through all animals and returns an HTML-formatted string with specific data """
+    """ iterates through all animals """
     output = ""
     for animal in overall_data:
-        output += '<li class="cards__item">'
-        output += f'\t<div class="card__title">{animal["name"]}</div>\n'
-        output += '\t<p class="card__text">'
-        output += f'\t\t<strong>Diet:</strong> {animal["characteristics"]["diet"]}<br/>\n'
-        output += f'\t\t<strong>Location:</strong> {animal["locations"][0]}<br/>\n'
-        if "type" in animal["characteristics"]:
-            output += f'\t\t<strong>Type:</strong> {animal["characteristics"]["type"]}<br/>\n'
-        output += '\t</p>'
-        output += '</li>'
+        output += serialize_animal(animal)
     return output
 
 
@@ -40,6 +47,7 @@ def main():
     desired_output = extract_animals_data(overall_animals_data)
     original_html_content = load_data_from_html('animals_template.html')
     updated_html_content = original_html_content.replace("__REPLACE_ANIMALS_INFO__", desired_output)
+    updated_html_content = updated_html_content.replace('<style>', '<meta charset="UTF-8" /> \n\t<style>')
     write_new_html_file('animals.html', updated_html_content)
 
 
